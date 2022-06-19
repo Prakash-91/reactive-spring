@@ -7,14 +7,15 @@ import reactor.test.StepVerifier;
 public class MonoTest {
 
     @Test
-    public void monoTest(){
+    public void monoTest() {
         Mono<String> stringMono = Mono.just("Spring").log();
         StepVerifier.create(stringMono)
                 .expectNext("Spring")
                 .verifyComplete();
     }
+
     @Test
-    public void monoTestWithCount(){
+    public void monoTestWithCount() {
         Mono<String> stringMono = Mono.just("Spring");
         StepVerifier.create(stringMono.log())
                 .expectNextCount(1)
@@ -22,9 +23,9 @@ public class MonoTest {
     }
 
     @Test
-    public void monoTestWithError(){
+    public void monoTestWithError() {
         Mono<Object> stringMono =
-                        Mono.error(new RuntimeException("Exception Occured"))
+                Mono.error(new RuntimeException("Exception Occured"))
                         .log();
         StepVerifier.create(stringMono)
                 .expectError(RuntimeException.class)
@@ -32,7 +33,7 @@ public class MonoTest {
     }
 
     @Test
-    public void monoTestWithExceptionMessage(){
+    public void monoTestWithExceptionMessage() {
         Mono<Object> stringMono =
                 Mono.error(new RuntimeException("Exception Occured"))
                         .log();
