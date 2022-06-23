@@ -76,9 +76,7 @@ public class FluxAndMonoControllerTest {
     @Test
     @DisplayName("FluxTest4")
     public void returnFluxTest4() {
-
         List<Integer> expectedIntegerList = Arrays.asList(1, 2, 3, 4);
-
         webTestClient
                 .get().uri("/flux")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -114,7 +112,6 @@ public class FluxAndMonoControllerTest {
     @Test
     @DisplayName("MonoTest")
     public void returnMonoTest() {
-
         Integer expectedValue = 1;
         webTestClient
                 .get().uri("/mono")
