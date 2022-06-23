@@ -60,9 +60,7 @@ public class FluxAndMonoControllerTest {
     @Test
     @DisplayName("FluxTest3")
     public void returnFluxTest3() {
-
         List<Integer> expectedIntegerList = Arrays.asList(1, 2, 3, 4);
-
         EntityExchangeResult<List<Integer>> entityExchangeResult =
                 webTestClient.get().uri("/flux")
                         .accept(MediaType.APPLICATION_JSON_UTF8)
