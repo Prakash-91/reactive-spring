@@ -74,11 +74,12 @@ public class FluxAndMonoControllerTest {
 
         assertEquals(expectedIntegerList, entityExchangeResult.getResponseBody());
     }
+
     @Test
     @DisplayName("FluxTest4")
-    public void returnFluxTest4(){
+    public void returnFluxTest4() {
 
-        List<Integer> expectedIntegerList = Arrays.asList(1,2,3,4);
+        List<Integer> expectedIntegerList = Arrays.asList(1, 2, 3, 4);
 
         webTestClient
                 .get().uri("/flux")
@@ -86,8 +87,45 @@ public class FluxAndMonoControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(Integer.class)
-                .consumeWith((response      ) -> {
+                .consumeWith((response) -> {
                     assertEquals(expectedIntegerList, response.getResponseBody());
+                });
+
+    }
+
+    @Test
+    @DisplayName("FluxTestWithInfiniteValue")
+    public void returnFluxTestWithInfiniteValue() {
+        Flux<Long> integerFlux = webTestClient.get().uri("/fluxstreaminfinite")
+                .accept(MediaType.APPLICATION_STREAM_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .returnResult(Long.class)
+                .getResponseBody();
+
+        StepVerifier.create(integerFlux)
+                .expectSubscription()
+                .expectNext(0l)
+                .expectNext(1l)
+                .expectNext(2l)
+                .thenCancel()
+                .verify();
+
+    }
+
+    @Test
+    @DisplayName("MonoTest")
+    public void returnMonoTest() {
+
+        Integer expectedValue = 1;
+        webTestClient
+                .get().uri("/mono")
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(Integer.class)
+                .consumeWith((response) -> {
+                    assertEquals(expectedValue, response.getResponseBody());
                 });
 
     }
