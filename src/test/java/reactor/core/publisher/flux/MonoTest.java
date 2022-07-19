@@ -37,6 +37,7 @@ public class MonoTest {
         Mono<Object> stringMono =
                 Mono.error(new RuntimeException("Exception Occured"))
                         .log();
+
         StepVerifier.create(stringMono)
                 .expectErrorMessage("Exception Occured")
                 .verify();
